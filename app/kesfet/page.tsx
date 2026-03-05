@@ -50,17 +50,12 @@ export default function KesfetSayfasi() {
   };
 
   let gosterilecekMekanlar = [];
-  let gosterimDurumu = ""; 
-
   if (yapayZekaSonuclari !== null) {
     gosterilecekMekanlar = mekanlar.filter(m => yapayZekaSonuclari.includes(m.id));
-    gosterimDurumu = gosterilecekMekanlar.length > 0 ? "yz-sonuc" : "bulunamadi";
   } else {
     gosterilecekMekanlar = mekanlar.filter((mekan) => {
       return seciliFiltreler.every((filtre) => mekan.ozellikler[filtre as keyof typeof mekan.ozellikler] === true);
     });
-    if (seciliFiltreler.length === 0) gosterimDurumu = "baslangic";
-    else gosterimDurumu = gosterilecekMekanlar.length === 0 ? "bulunamadi" : "filtre-sonuc";
   }
 
   return (
@@ -80,8 +75,15 @@ export default function KesfetSayfasi() {
             </h1>
           </Link>
           <div className="flex gap-6 items-center">
-            <span onClick={() => setModalAcik(true)} className="text-sm font-medium hover:text-indigo-400 transition-colors cursor-pointer hidden md:block">Nasıl Çalışır?</span>
-            <button className="bg-white text-slate-950 px-6 py-2.5 rounded-full text-sm font-bold hover:bg-indigo-400 hover:text-white transition-all active:scale-95 shadow-lg shadow-white/5">Mekan Öner</button>
+            <span 
+              onClick={() => setModalAcik(true)} 
+              className="text-sm font-medium hover:text-indigo-400 transition-colors cursor-pointer hidden md:block"
+            >
+              Nasıl Çalışır?
+            </span>
+            <button className="bg-white text-slate-950 px-6 py-2.5 rounded-full text-sm font-bold hover:bg-indigo-400 hover:text-white transition-all active:scale-95 shadow-lg shadow-white/5">
+              Mekan Öner
+            </button>
           </div>
         </div>
       </header>
@@ -91,7 +93,7 @@ export default function KesfetSayfasi() {
           
           {/* Sol Panel: Filtreler */}
           <aside className="lg:col-span-3 space-y-8">
-            <div className="bg-white/5 border border-white/10 rounded-[2rem] p-6 backdrop-blur-md sticky top-28 max-h-[80vh] overflow-y-auto custom-scrollbar shadow-2xl">
+            <div className="bg-white/5 border border-white/10 rounded-[2rem] p-6 backdrop-blur-md sticky top-28 max-h-[80vh] overflow-y-auto custom-scrollbar shadow-2xl text-slate-200">
               <div className="flex justify-between items-center mb-8 border-b border-white/5 pb-4">
                 <h2 className="text-lg font-bold tracking-tight text-white">Kriterler</h2>
                 {(seciliFiltreler.length > 0 || yapayZekaSonuclari !== null) && (
@@ -110,7 +112,12 @@ export default function KesfetSayfasi() {
                     <div className="space-y-3">
                       {group.items.map(([id, label]) => (
                         <label key={id} className="flex items-center gap-3 cursor-pointer group">
-                          <input type="checkbox" checked={seciliFiltreler.includes(id)} onChange={() => filtreyiGuncelle(id)} className="peer appearance-none w-5 h-5 rounded-md border border-white/10 checked:bg-indigo-500 checked:border-indigo-500 transition-all cursor-pointer" />
+                          <input 
+                            type="checkbox" 
+                            checked={seciliFiltreler.includes(id)} 
+                            onChange={() => filtreyiGuncelle(id)} 
+                            className="peer appearance-none w-5 h-5 rounded-md border border-white/10 checked:bg-indigo-500 checked:border-indigo-500 transition-all cursor-pointer" 
+                          />
                           <span className="text-sm text-slate-400 group-hover:text-white transition-colors">{label}</span>
                         </label>
                       ))}
@@ -127,25 +134,37 @@ export default function KesfetSayfasi() {
               <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-[2rem] blur opacity-20 group-focus-within:opacity-40 transition duration-1000"></div>
               <div className="relative bg-slate-900 border border-white/10 rounded-[1.8rem] flex items-center p-2 pl-6 shadow-2xl">
                 <span className="text-xl mr-4 opacity-70">✨</span>
-                <input type="text" placeholder="Yapay zekaya nasıl bir yer aradığınızı anlatın..." className="bg-transparent border-none focus:ring-0 w-full text-white placeholder-slate-500 font-medium py-3" value={yapayZekaSorgusu} onChange={(e) => setYapayZekaSorgusu(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && yapayZekaIleAra()} />
-                <button onClick={yapayZekaIleAra} disabled={yukleniyor} className="bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white px-8 py-3.5 rounded-2xl font-bold transition-all min-w-[140px] flex justify-center items-center shadow-lg shadow-indigo-500/20">{yukleniyor ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> : "Mekan Bul"}</button>
+                <input 
+                  type="text" 
+                  placeholder="Yapay zekaya nasıl bir yer aradığınızı anlatın..." 
+                  className="bg-transparent border-none focus:ring-0 w-full text-white placeholder-slate-500 font-medium py-3" 
+                  value={yapayZekaSorgusu} 
+                  onChange={(e) => setYapayZekaSorgusu(e.target.value)} 
+                  onKeyDown={(e) => e.key === 'Enter' && yapayZekaIleAra()} 
+                />
+                <button 
+                  onClick={yapayZekaIleAra} 
+                  disabled={yukleniyor} 
+                  className="bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white px-8 py-3.5 rounded-2xl font-bold transition-all min-w-[140px] flex justify-center items-center shadow-lg shadow-indigo-500/20"
+                >
+                  {yukleniyor ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> : "Mekan Bul"}
+                </button>
               </div>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
               {gosterilecekMekanlar.map((mekan) => (
                 <div key={mekan.id} className="group bg-white/5 border border-white/10 rounded-[2.5rem] overflow-hidden hover:bg-white/[0.08] transition-all duration-500 hover:-translate-y-2 flex flex-col shadow-xl">
-                  {/* RESİM ALANI - DÜZELTİLDİ */}
                   <div className="h-64 relative overflow-hidden bg-slate-900 flex items-center justify-center">
                     <div className="absolute inset-0 bg-slate-800 flex items-center justify-center z-0">
-                      <span className="text-4xl opacity-20">📍</span>
+                      <span className="text-4xl opacity-20 text-slate-200">📍</span>
                     </div>
                     <img 
                       src={mekan.gorsel} 
                       alt={mekan.isim} 
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 relative z-10" 
-                      onError={(e) => { const target = e.target as HTMLImageElement; target.onerror = null; target.src = "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1000"; }} 
+                      onError={(e) => { const target = e.target as HTMLImageElement; target.onerror = null; target.src = "https://picsum.photos/id/1060/1200/800"; }} 
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent opacity-90 z-20"></div>
                   </div>
@@ -165,7 +184,42 @@ export default function KesfetSayfasi() {
           </div>
         </div>
       </main>
-      {/* Modal Kısmı ... (Burası aynı kalabilir) */}
+
+      {/* NASIL ÇALIŞIR MODAL */}
+      {modalAcik && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 backdrop-blur-sm bg-black/60">
+          <div className="absolute inset-0" onClick={() => setModalAcik(false)}></div>
+          <div className="relative bg-slate-900 border border-white/10 w-full max-w-xl rounded-[3rem] p-12 shadow-2xl animate-in zoom-in-95 duration-300">
+            <button 
+              onClick={() => setModalAcik(false)} 
+              className="absolute top-8 right-8 text-slate-500 hover:text-white transition-colors text-xl"
+            >
+              ✕
+            </button>
+            <h2 className="text-3xl font-black mb-8 text-white tracking-tight">Nasıl Çalışır? ✨</h2>
+            <div className="space-y-6 text-slate-400 leading-relaxed">
+              <div className="flex gap-4">
+                <div className="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold shrink-0">1</div>
+                <p><strong className="text-white">Kriterlerini Belirle:</strong> Sol paneldeki filtreleri kullanarak aradığın mekanın özelliklerini seçebilirsin.</p>
+              </div>
+              <div className="flex gap-4">
+                <div className="w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold shrink-0">2</div>
+                <p><strong className="text-white">Yapay Zekaya Danış:</strong> Arama çubuğuna doğal cümleler yazarak sana özel akıllı öneriler alabilirsin.</p>
+              </div>
+              <div className="flex gap-4">
+                <div className="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold shrink-0">3</div>
+                <p><strong className="text-white">Mekanı Keşfet:</strong> Beğendiğin bir mekana tıklayarak tüm detaylarını inceleyebilirsin.</p>
+              </div>
+            </div>
+            <button 
+              onClick={() => setModalAcik(false)}
+              className="w-full mt-10 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold transition-all shadow-lg shadow-indigo-500/20"
+            >
+              Anladım, Başlayalım!
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
