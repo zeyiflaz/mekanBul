@@ -60,13 +60,11 @@ export default function KesfetSayfasi() {
 
   return (
     <div className="min-h-screen bg-[#0f172a] text-slate-200 font-sans selection:bg-indigo-500/30">
-      {/* Arka Plan Glow Efektleri */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-indigo-600/10 blur-[120px] rounded-full"></div>
         <div className="absolute top-[20%] -right-[5%] w-[30%] h-[30%] bg-blue-600/10 blur-[100px] rounded-full"></div>
       </div>
 
-      {/* Navbar */}
       <header className="sticky top-0 z-50 border-b border-white/5 bg-slate-950/20 backdrop-blur-2xl">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <Link href="/">
@@ -81,17 +79,18 @@ export default function KesfetSayfasi() {
             >
               Nasıl Çalışır?
             </span>
-            <button className="bg-white text-slate-950 px-6 py-2.5 rounded-full text-sm font-bold hover:bg-indigo-400 hover:text-white transition-all active:scale-95 shadow-lg shadow-white/5">
-              Mekan Öner
-            </button>
+            {/* BURASI DEĞİŞTİ: Link ekledik */}
+            <Link href="/mekan-oner">
+              <button className="bg-white text-slate-950 px-6 py-2.5 rounded-full text-sm font-bold hover:bg-indigo-400 hover:text-white transition-all active:scale-95 shadow-lg shadow-white/5">
+                Mekan Ekle
+              </button>
+            </Link>
           </div>
         </div>
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-10 relative z-10">
         <div className="grid lg:grid-cols-12 gap-10">
-          
-          {/* Sol Panel: Filtreler */}
           <aside className="lg:col-span-3 space-y-8">
             <div className="bg-white/5 border border-white/10 rounded-[2rem] p-6 backdrop-blur-md sticky top-28 max-h-[80vh] overflow-y-auto custom-scrollbar shadow-2xl text-slate-200">
               <div className="flex justify-between items-center mb-8 border-b border-white/5 pb-4">
@@ -128,7 +127,6 @@ export default function KesfetSayfasi() {
             </div>
           </aside>
 
-          {/* Sağ Panel */}
           <div className="lg:col-span-9 space-y-8">
             <div className="group relative">
               <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-[2rem] blur opacity-20 group-focus-within:opacity-40 transition duration-1000"></div>
@@ -185,17 +183,11 @@ export default function KesfetSayfasi() {
         </div>
       </main>
 
-      {/* NASIL ÇALIŞIR MODAL */}
       {modalAcik && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 backdrop-blur-sm bg-black/60">
           <div className="absolute inset-0" onClick={() => setModalAcik(false)}></div>
           <div className="relative bg-slate-900 border border-white/10 w-full max-w-xl rounded-[3rem] p-12 shadow-2xl animate-in zoom-in-95 duration-300">
-            <button 
-              onClick={() => setModalAcik(false)} 
-              className="absolute top-8 right-8 text-slate-500 hover:text-white transition-colors text-xl"
-            >
-              ✕
-            </button>
+            <button onClick={() => setModalAcik(false)} className="absolute top-8 right-8 text-slate-500 hover:text-white transition-colors text-xl">✕</button>
             <h2 className="text-3xl font-black mb-8 text-white tracking-tight">Nasıl Çalışır? ✨</h2>
             <div className="space-y-6 text-slate-400 leading-relaxed">
               <div className="flex gap-4">
@@ -211,12 +203,7 @@ export default function KesfetSayfasi() {
                 <p><strong className="text-white">Mekanı Keşfet:</strong> Beğendiğin bir mekana tıklayarak tüm detaylarını inceleyebilirsin.</p>
               </div>
             </div>
-            <button 
-              onClick={() => setModalAcik(false)}
-              className="w-full mt-10 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold transition-all shadow-lg shadow-indigo-500/20"
-            >
-              Anladım, Başlayalım!
-            </button>
+            <button onClick={() => setModalAcik(false)} className="w-full mt-10 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold transition-all shadow-lg shadow-indigo-500/20">Anladım, Başlayalım!</button>
           </div>
         </div>
       )}
